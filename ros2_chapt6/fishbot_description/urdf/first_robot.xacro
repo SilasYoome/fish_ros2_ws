@@ -1,0 +1,59 @@
+<?xml version="1.0"?>
+<robot xmlns:xacro="http://www.ros.org/wiki/xacro" name="first_robot">
+    <xacro:macro name="base_link" params="length radius">
+<!-- 機器人的身體部份 -->
+        <link name="base_link">
+            <!-- 部件的外觀描述 -->
+            <visual>
+
+                <!-- 沿著自己集合中心的偏移與旋轉量 -->
+                <origin xyz="0.0 0.0 0.0" rpy="0.0 0.0 0.0"/>
+
+                <!-- 幾何形狀 -->
+                <geometry>
+                    <!-- 圓柱體 radius 半徑 0.10m 高度length 0.12m-->
+                    <cylinder radius="${radius}" length="${length}"/>
+                </geometry>
+
+                <!-- 材質顏色 -->
+                <material name="white">
+                    <color rgba="1.0 1.0 1.0 0.5"/>
+                </material>
+            </visual>
+        </link>
+        </xacro:macro>
+        
+
+        <xacro:macro name="imu_link" params="imu_name xyz">
+        <!-- 機器人的IMU部件，慣性測量感測器 -->
+            <link name="${imu_name}_link">
+            <!-- 部件的外觀描述 -->
+            <visual>
+
+                <!-- 沿著自己集合中心的偏移與旋轉量 -->
+                <origin xyz="0 0 0" rpy="0 0 0" />
+
+                <!-- 幾何形狀 -->
+                <geometry>
+                    <box size="0.02 0.02 0.02"/>
+                </geometry>
+
+                <!-- 材質顏色 -->
+                <material name="black">
+                    <color rgba="0.0 0.0 0.0 0.5"/>
+                </material>
+            </visual>
+        </link>
+
+        <!-- 機器人的關節，用於機器人的部件 -->
+        <joint name="${imu_name}_joint" type="fixed">
+            <parent link="base_link"/>
+            <child link="${imu_name}_link"/>
+            <origin xyz="${xyz}" rpy="0.0 0.0 0.0"/>
+        </joint>
+    </xacro:macro>
+
+    <xacro:base_link length="0.12" radius="0.1"/>
+    <xacro:imu_link imu_name="imu_up" xyz="0.0 0.0 0.03"/>
+    <xacro:imu_link imu_name="imu_down" xyz="0.0 0.0 -0.03"/>
+</robot>

@@ -1,0 +1,48 @@
+<?xml version="1.0"?>
+<robot xmlns:xacro="http://www.ros.org/wiki/xacro">
+    <xacro:include filename="$(find fishbot_description)/urdf/rosmaze_bot/common_intertia.xacro" />
+        <xacro:macro name="imu_xacro" params="xyz">
+        <!-- 機器人的IMU部件 慣性測量感測器 -->
+            <link name="imu_link">
+            <!-- 部件的外觀描述 -->
+            <visual>
+
+                <!-- 沿著自己集合中心的偏移與旋轉量 -->
+                <origin xyz="0 0 0" rpy="0 0 0" />
+
+                <!-- 幾何形狀 -->
+                <geometry>
+                    <box size="0.05 0.05 0.01"/>
+                </geometry>
+
+                <!-- 材質顏色 -->
+                <material name="orange">
+                    <color rgba="1.0 0.3 0.1 0.5"/>
+                </material>
+            </visual>
+            <collision>
+                <origin xyz="0 0 0" rpy="0 0 0" />
+                <geometry>
+                    <box size="0.05 0.05 0.01"/>
+                </geometry>
+                <material name="orange">
+                    <color rgba="1.0 0.3 0.1 0.5"/>
+                </material>
+            </collision>
+
+            <xacro:box_inertia m="0.05" w="0.05" h="0.05" d="0.01" />
+        </link>
+
+        <!-- 機器人的關節 用於機器人的部件 -->
+        <joint name="imu_joint" type="fixed">
+            <parent link="base_link"/>
+            <child link="imu_link"/>
+            <origin xyz="${xyz}" rpy="0.0 0.0 0.0"/>
+        </joint>
+
+        <gazebo reference="imu_joint">
+            <material>Gazebo/Orange</material>
+        </gazebo>
+    </xacro:macro>
+
+</robot>

@@ -1,0 +1,30 @@
+<?xml version="1.0"?>
+<robot xmlns:xacro="http://www.ros.org/wiki/xacro"  name="robot">
+
+    <xacro:include filename="$(find fishbot_description)/urdf/rosmaze_bot/rprobot_core.urdf.xacro" />
+
+
+    <xacro:include filename="$(find fishbot_description)/urdf/rosmaze_bot/sensor/laser.urdf.xacro" />
+    <xacro:include filename="$(find fishbot_description)/urdf/rosmaze_bot/sensor/imu.urdf.xacro" />
+
+
+    <xacro:include filename="$(find fishbot_description)/urdf/rosmaze_bot/actuator/wheel.urdf.xacro" />
+
+
+    <xacro:include filename="$(find fishbot_description)/urdf/rosmaze_bot/plugins/gazebo_sensor_plugins.xacro" />
+
+
+    <xacro:include filename="$(find fishbot_description)/urdf/rosmaze_bot/rprobot.ros2_control.xacro" />
+
+    <xacro:laser_xacro xyz="0.0 0.0 0.09" />
+    <xacro:imu_xacro xyz="0.025 0.038 0" />
+
+    <xacro:wheel_xacro wheel_name="front_right_wheel" xyz="0.055 -0.085 -0.065" />
+    <xacro:wheel_xacro wheel_name="front_left_wheel" xyz="0.055 0.085 -0.065" />
+    <xacro:wheel_xacro wheel_name="back_right_wheel" xyz="-0.055 -0.085 -0.065" />
+    <xacro:wheel_xacro wheel_name="back_left_wheel" xyz="-0.055 0.085 -0.065" />
+
+
+    <xacro:gazebo_sensor_plugin />
+    <xacro:rprobot_ros2_control />
+</robot>
